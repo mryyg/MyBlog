@@ -1,5 +1,5 @@
 ---
-title:  native-js
+title:  seo
 date: {{ date }}
 tags:
 ---
