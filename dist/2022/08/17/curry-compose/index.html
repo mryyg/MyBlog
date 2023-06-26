@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon.svg">
+  <link rel="mask-icon" href="/image/favicon.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.mryyg.site","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="和纯函数一样，柯里化（curry）和组合（compose）是函数式编程里非常重要的两个概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数柯里化（curry）和组合（compose）">
+<meta property="og:url" content="https://www.mryyg.site/2022/08/17/curry-compose/index.html">
+<meta property="og:site_name" content="个人学习记录">
+<meta property="og:description" content="和纯函数一样，柯里化（curry）和组合（compose）是函数式编程里非常重要的两个概念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-17T06:33:26.307Z">
+<meta property="article:modified_time" content="2022-08-17T06:33:26.307Z">
+<meta property="article:author" content="mryyg">
+<meta property="article:tag" content="前端 React js ts">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.mryyg.site/2022/08/17/curry-compose/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.mryyg.site/2022/08/17/curry-compose/","path":"2022/08/17/curry-compose/","title":"函数柯里化（curry）和组合（compose）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>函数柯里化（curry）和组合（compose） | 个人学习记录</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">个人学习记录</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%EF%BC%88curry%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">柯里化（curry）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E7%9C%8B%E4%B8%80%E4%B8%AA%E5%B0%8F%E6%A0%97%E5%AD%90"><span class="nav-number">1.0.1.</span> <span class="nav-text">先来看一个小栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%AF%E9%87%8C%E5%8C%96%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.0.2.</span> <span class="nav-text">柯里化的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84curry%E5%87%BD%E6%95%B0%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">1.0.3.</span> <span class="nav-text">实现一个简单的curry函数生成器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%EF%BC%88compose%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">组合（compose）</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="mryyg"
+      src="/image/avatar.png">
+  <p class="site-author-name" itemprop="name">mryyg</p>
+  <div class="site-description" itemprop="description">约定的力量在于：我们不用细看实现，也能通过命名来了解一个它是什么。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.mryyg.site/2022/08/17/curry-compose/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="name" content="mryyg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人学习记录">
+      <meta itemprop="description" content="约定的力量在于：我们不用细看实现，也能通过命名来了解一个它是什么。">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="函数柯里化（curry）和组合（compose） | 个人学习记录">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          函数柯里化（curry）和组合（compose）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-17 14:33:26" itemprop="dateCreated datePublished" datetime="2022-08-17T14:33:26+08:00">2022-08-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>和纯函数一样，柯里化（curry）和组合（compose）是函数式编程里非常重要的两个概念。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="柯里化（curry）"><a href="#柯里化（curry）" class="headerlink" title="柯里化（curry）"></a>柯里化（curry）</h2><blockquote>
+<p>概念：柯里化就是把一个多参数的函数转换为一个嵌套的单参数函数的过程，允许只传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数。</p>
+</blockquote>
+<h4 id="先来看一个小栗子"><a href="#先来看一个小栗子" class="headerlink" title="先来看一个小栗子"></a>先来看一个小栗子</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 普通函数</span><br><span class="line">function add1(x, y) &#123;</span><br><span class="line">  return x + y</span><br><span class="line">&#125;</span><br><span class="line">console.log(add1(2, 10))</span><br><span class="line"></span><br><span class="line">// 柯里化函数</span><br><span class="line">function add2(x) &#123;</span><br><span class="line">  return function (y) &#123;</span><br><span class="line">    return x + y</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add2(2)(10))</span><br></pre></td></tr></table></figure>
+
+<h4 id="柯里化的作用"><a href="#柯里化的作用" class="headerlink" title="柯里化的作用"></a>柯里化的作用</h4><p><strong>参数复用,让函数的职责单一</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 普通函数</span><br><span class="line">function add1(x, y) &#123;</span><br><span class="line">  return x + y</span><br><span class="line">&#125;</span><br><span class="line">console.log(add1(10, 10)) // 20</span><br><span class="line">console.log(add1(10, 1)) // 11</span><br><span class="line">console.log(add1(10, 100)) // 110</span><br><span class="line"></span><br><span class="line">// 柯里化函数</span><br><span class="line">function add2(x) &#123;</span><br><span class="line">  return function (y) &#123;</span><br><span class="line">    return x + y</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">const addTen = add2(10)</span><br><span class="line"></span><br><span class="line">console.log(addTen(10)) // 20</span><br><span class="line">console.log(addTen(1)) // 11</span><br><span class="line">console.log(addTen(100)) // 110</span><br></pre></td></tr></table></figure>
+<p>调用add2之后，返回的addTen函数就通过闭包的方式记住了 add2 的第一个参数, 并且addTen函数功能明确。</p>
+<h4 id="实现一个简单的curry函数生成器"><a href="#实现一个简单的curry函数生成器" class="headerlink" title="实现一个简单的curry函数生成器"></a>实现一个简单的curry函数生成器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const curryGenerator = (fn) =&gt; &#123;</span><br><span class="line">  return function curryFunc(...args) &#123;</span><br><span class="line">    // 如果传入的参数已经足够，则直接调用函数fn</span><br><span class="line">    if (args.length &gt;= fn.length) &#123;</span><br><span class="line">      return fn(...args)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      // 否则返回一个新的函数，接收后面传递的新参数；合并参数，递归调用curryFunc</span><br><span class="line">      return (...newArgs) =&gt; curryFunc(...args.concat(newArgs))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>来创建一个curry函数检验一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const match = curryGenerator(function (what, str) &#123;</span><br><span class="line">  return str.match(what);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(match(/\s+/g, &#x27;hello word&#x27;)) // [ &#x27; &#x27; ]</span><br><span class="line">const hasSpace = match(/\s+/g)</span><br><span class="line">console.log(hasSpace(&#x27;hello word&#x27;)) // [ &#x27; &#x27; ]</span><br><span class="line">console.log(hasSpace(&#x27;spaceless&#x27;)) // null</span><br></pre></td></tr></table></figure>
+
+<p>注意上面代码，我们在使用curry函数时，会策略性地把要操作的数据，放到最后一个参数里。</p>
+<h2 id="组合（compose）"><a href="#组合（compose）" class="headerlink" title="组合（compose）"></a>组合（compose）</h2><blockquote>
+<p>概念： 组合多个函数，同时返回一个新的函数；调用时，组合函数按顺序从右向左执行；右边函数调用后，返回的结果，作为左边函数的参数传入，严格保证了执行顺序。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const compose = function(f,g) &#123;</span><br><span class="line">  return function(x) &#123;</span><br><span class="line">    return f(g(x));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const toUpperCase = function (x) &#123; return x.toUpperCase(); &#125;;</span><br><span class="line">const addExclaim = function (x) &#123; return x + &#x27;!&#x27;; &#125;;</span><br><span class="line">const finalStr = compose(addExclaim, toUpperCase);</span><br><span class="line"></span><br><span class="line">console.log(finalStr(&#x27;hello world&#x27;)) // HELLO WORLD!</span><br></pre></td></tr></table></figure>
+
+<p>f 和 g 都是函数，参数x在函数间就好像通过管道传输一样；g 将先于 f 执行，因此就创建了一个从右到左的数据流，这样做的可读性远远高于嵌套一大堆的函数调用。<br>如果不用compose，上面的finalStr函数就会下面是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const finalStr = (x)=&gt;&#123;</span><br><span class="line">  return addExclaim(toUpperCase(x))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完善一下compose函数，以适应传入更多函数和参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function compose(...fns) &#123;</span><br><span class="line">  if (fns.lenth == 0) return (...args) =&gt; args</span><br><span class="line">  return function (...args) &#123;</span><br><span class="line">    let index = fns.length - 1</span><br><span class="line">    let result = fns[index].apply(this, args)</span><br><span class="line">    while (index--) &#123;</span><br><span class="line">      result = fns[index].call(this, result)</span><br><span class="line">    &#125;</span><br><span class="line">    return result</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更高级的实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function compose(...fns) &#123;</span><br><span class="line">  if (fns.lenth == 0) return (...args) =&gt; args</span><br><span class="line">  if (fns.length === 1) return fns[0]</span><br><span class="line">  return fns.reduce((f,g)=&gt;(...args)=&gt;f(g(...args)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里借鉴dan大神的代码，非常巧妙的将下一个函数的执行结果作为参数传递给上一个函数，并在最后返回一个接收实际参数的函数。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/14/refresh-token/" rel="prev" title="refresh-token">
+                  <i class="fa fa-chevron-left"></i> refresh-token
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/17/debounce-throttle/" rel="next" title="防抖和节流">
+                  防抖和节流 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">鄂ICP备2022001727号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mryyg</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
