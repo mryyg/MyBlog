@@ -35,22 +35,10 @@ const path = require('path')
 
 const fileName = ['en', 'zh', 'ja', 'de', 'fr', 'it', 'es', 'ru', 'nl', 'pl', 'sv', 'tr','pt','zh_TW']
 
-const fileMap = {
-  en: {},
-  zh: {},
-  ja: {},
-  de: {},
-  fr: {},
-  it: {},
-  es: {},
-  ru: {},
-  nl: {},
-  pl: {},
-  sv: {},
-  tr: {},
-  pt: {},
-  zh_TW: {},
-}
+const fileMap = fileName.reduce((pre, cur) => {
+    pre[cur] = {}
+    return pre
+},{})
 
 try {
   var tableData = xlsx.parse(path.join(__dirname, './lang.xlsx'));
