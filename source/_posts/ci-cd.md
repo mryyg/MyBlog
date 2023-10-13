@@ -108,3 +108,27 @@ EXPOSE 3000
 CMD [ "npm", "run", "start:dev" ]
 ```
  然后就是nginx的配置，将80端口和对应路径转发到3033端口
+
+
+-----  23-10-13   -----
+让GPT优化后的Dockerfile，镜像体积减少了近1.6个G
+```
+# 阶段 1: 构建应用程序
+FROM node:16.17.0-alpine as build
+
+WORKDIR /app
+COPY . /app
+RUN yarn
+RUN npm run build:dev
+
+# 阶段 2: 创建最终镜像
+FROM node:16.17.0
+
+WORKDIR /app
+COPY --from=build /app /app
+
+EXPOSE 3000
+
+CMD [ "npm", "run", "start:dev" ]
+```
+
