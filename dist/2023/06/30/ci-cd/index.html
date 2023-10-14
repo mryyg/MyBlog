@@ -28,7 +28,7 @@
 <meta property="og:description" content="nextjs多环境配置、多语言以及自动化构建和部署">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-30T03:50:15.760Z">
-<meta property="article:modified_time" content="2023-06-30T09:01:44.268Z">
+<meta property="article:modified_time" content="2023-10-13T02:14:32.053Z">
 <meta property="article:author" content="mryyg">
 <meta property="article:tag" content="前端 React js ts">
 <meta name="twitter:card" content="summary">
@@ -200,9 +200,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-06-30 11:50:15 / 修改时间：17:01:44" itemprop="dateCreated datePublished" datetime="2023-06-30T11:50:15+08:00">2023-06-30</time>
+      <time title="创建时间：2023-06-30 11:50:15" itemprop="dateCreated datePublished" datetime="2023-06-30T11:50:15+08:00">2023-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-13 10:14:32" itemprop="dateModified" datetime="2023-10-13T10:14:32+08:00">2023-10-13</time>
     </span>
 
   
@@ -231,6 +237,9 @@
 <p>docker也用的不熟，简单写了个Dockerfile,放项目根目录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM node:16.17.0</span><br><span class="line"></span><br><span class="line"># 设置工作目录</span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"># 将项目文件复制到工作目录</span><br><span class="line">COPY . /app</span><br><span class="line"></span><br><span class="line"># 安装依赖项</span><br><span class="line"></span><br><span class="line">RUN yarn</span><br><span class="line"></span><br><span class="line">RUN npm run build:dev</span><br><span class="line"></span><br><span class="line"># 暴露端口（根据需要）</span><br><span class="line">EXPOSE 3000</span><br><span class="line"></span><br><span class="line"># 启动应用程序</span><br><span class="line">CMD [ &quot;npm&quot;, &quot;run&quot;, &quot;start:dev&quot; ]</span><br></pre></td></tr></table></figure>
 <p> 然后就是nginx的配置，将80端口和对应路径转发到3033端口</p>
+<p>—–  23-10-13   —–<br>让GPT优化后的Dockerfile，镜像体积减少了近1.6个G</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 阶段 1: 构建应用程序</span><br><span class="line">FROM node:16.17.0-alpine as build</span><br><span class="line"></span><br><span class="line">WORKDIR /app</span><br><span class="line">COPY . /app</span><br><span class="line">RUN yarn</span><br><span class="line">RUN npm run build:dev</span><br><span class="line"></span><br><span class="line"># 阶段 2: 创建最终镜像</span><br><span class="line">FROM node:16.17.0</span><br><span class="line"></span><br><span class="line">WORKDIR /app</span><br><span class="line">COPY --from=build /app /app</span><br><span class="line"></span><br><span class="line">EXPOSE 3000</span><br><span class="line"></span><br><span class="line">CMD [ &quot;npm&quot;, &quot;run&quot;, &quot;start:dev&quot; ]</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
