@@ -7,7 +7,7 @@ tags:
 一些平时项目中封装的自定义hooks
 
 <!-- more -->
-1、useWatch
+1. useWatch
 
 >代码
 
@@ -43,7 +43,7 @@ export function useWatch<T>(
 }
 ```
 
-2、useEffectAsync
+2. useEffectAsync
 
 ```
 export const useEffectAsync = (effect, deps) => {
@@ -64,7 +64,7 @@ export const useEffectAsync = (effect, deps) => {
 };
 ```
 
-3.useForm
+3. useForm
 ```
 export default () => {
     const [formData, setFormData] = useState({});
@@ -137,7 +137,7 @@ export default () => {
 }
 ```
 
-4.useDictionary
+4. useDictionary
 
 ```
 interface IDictionary {
@@ -172,4 +172,54 @@ export default function useDictionary(dicKey: string): IDicItem[] {
 
   return val.dicList
 }
+```
+
+5. useClientSize
+```
+type BreakpointChecks = {
+    isMobile: boolean
+    isTablet: boolean
+    isDesktop: boolean
+}
+
+const useClientSize = () => {
+    const [clientWidth, setClientWidth] = useState(0)
+
+    const [breakpointChecks, setBreakpointChecks] = useState<BreakpointChecks>({
+        isMobile: false,
+        isTablet: false,
+        isDesktop: false,
+    })
+
+    const checkBreakpoints = (clientWidth: number) => {
+        const isMobile = clientWidth < 768
+        const isTablet = clientWidth >= 768 && clientWidth < 992
+        const isDesktop = clientWidth >= 992
+        setBreakpointChecks({ isMobile, isTablet, isDesktop })
+    }
+
+    const onResize = () => {
+        setClientWidth(window.innerWidth)
+        checkBreakpoints(window.innerWidth)
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', onResize)
+        return () => {
+            window.removeEventListener('resize', onResize)
+        }
+    }, [onResize])
+
+    useEffect(()=>{
+        setClientWidth(window.innerWidth)
+        checkBreakpoints(window.innerWidth)
+    },[])
+
+    return {
+        clientWidth,
+        ...breakpointChecks,
+    }
+}
+
+export default useClientSize
 ```
