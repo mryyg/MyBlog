@@ -136,3 +136,40 @@ export default () => {
     return ({ register, handleSubmit, formState: { formData, errors }, updataFormData, unregister })
 }
 ```
+
+4.useDictionary
+
+```
+interface IDictionary {
+  langCode: string
+  dicList: IDicItem[]
+}
+
+export default function useDictionary(dicKey: string): IDicItem[] {
+  const [val, setVal] = useState<IDictionary>({ langCode: '', dicList: [] })
+  const { langCode } = useSelector(commonSelecter)
+
+  const setValFunc = (dicList: IDicItem[]) => {
+    storage.session.set(dicKey as any, { langCode, dicList })
+    setVal({ langCode: langCode, dicList })
+  }
+
+  const getValFunc = async () => {
+    if (!langCode) return
+    const res = await getTranslatesByTopDictKeyApi(dicKey, langCode)
+    if (res.success && res.data) {
+      setValFunc(res.data)
+    }
+  }
+
+  useEffect(() => {
+    if (storage.session.get(dicKey as any, '') && storage.session.get(dicKey as any, '').langCode === langCode) {
+      setVal(storage.session.get(dicKey as any, ''))
+    } else {
+      getValFunc()
+    }
+  }, [langCode])
+
+  return val.dicList
+}
+```
