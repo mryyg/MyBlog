@@ -6,24 +6,24 @@
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon.svg">
-  <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon.svg">
-  <link rel="mask-icon" href="/image/favicon.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/MyBlog/image/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/MyBlog/image/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/MyBlog/image/favicon.svg">
+  <link rel="mask-icon" href="/MyBlog/image/favicon.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/MyBlog/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.mryyg.site","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mryyg.github.io","root":"/MyBlog/","images":"/MyBlog/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/MyBlog/js/config.js"></script>
 
     <meta name="description" content="搬运自己写在知乎的文章   https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;110560615">
 <meta property="og:type" content="article">
 <meta property="og:title" content="binary-search-tree">
-<meta property="og:url" content="https://www.mryyg.site/2022/04/19/binary-search-tree/index.html">
+<meta property="og:url" content="https://mryyg.github.io/MyBlog/2022/04/19/binary-search-tree/index.html">
 <meta property="og:site_name" content="mryyg&#39;s blog">
 <meta property="og:description" content="搬运自己写在知乎的文章   https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;110560615">
 <meta property="og:locale" content="zh_CN">
@@ -34,11 +34,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://www.mryyg.site/2022/04/19/binary-search-tree/">
+<link rel="canonical" href="https://mryyg.github.io/MyBlog/2022/04/19/binary-search-tree/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.mryyg.site/2022/04/19/binary-search-tree/","path":"2022/04/19/binary-search-tree/","title":"binary-search-tree"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mryyg.github.io/MyBlog/2022/04/19/binary-search-tree/","path":"2022/04/19/binary-search-tree/","title":"binary-search-tree"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>binary-search-tree | mryyg's blog</title>
@@ -49,7 +49,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
+    <link rel="stylesheet" href="/MyBlog/css/noscript.css">
   </noscript>
 </head>
 
@@ -69,7 +69,7 @@
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/MyBlog/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">mryyg's blog</p>
       <i class="logo-line"></i>
@@ -86,8 +86,8 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-home"><a href="/MyBlog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/MyBlog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
@@ -124,14 +124,14 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="mryyg"
-      src="/image/avatar.png">
+      src="/MyBlog/image/avatar.png">
   <p class="site-author-name" itemprop="name">mryyg</p>
   <div class="site-description" itemprop="description">约定的力量在于：我们不用细看实现，也能通过命名来了解一个它是什么。</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/archives/">
+        <a href="/MyBlog/archives/">
           <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
@@ -172,10 +172,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.mryyg.site/2022/04/19/binary-search-tree/">
+    <link itemprop="mainEntityOfPage" href="https://mryyg.github.io/MyBlog/2022/04/19/binary-search-tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/image/avatar.png">
+      <meta itemprop="image" content="/MyBlog/image/avatar.png">
       <meta itemprop="name" content="mryyg">
     </span>
 
@@ -240,12 +240,12 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/03/27/prue-function/" rel="prev" title="Prue function">
+                <a href="/MyBlog/2022/03/27/prue-function/" rel="prev" title="Prue function">
                   <i class="fa fa-chevron-left"></i> Prue function
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/07/14/refresh-token/" rel="next" title="refresh-token">
+                <a href="/MyBlog/2022/07/14/refresh-token/" rel="next" title="refresh-token">
                   refresh-token <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -270,7 +270,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -284,7 +284,7 @@
 
   
   <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+<script src="/MyBlog/js/comments.js"></script><script src="/MyBlog/js/utils.js"></script><script src="/MyBlog/js/motion.js"></script><script src="/MyBlog/js/next-boot.js"></script>
 
   
 
