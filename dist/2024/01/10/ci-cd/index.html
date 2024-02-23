@@ -20,25 +20,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mryyg.github.io","root":"/MyBlog/","images":"/MyBlog/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/MyBlog/js/config.js"></script>
 
-    <meta name="description" content="nextjs多环境配置、多语言以及自动化构建和部署">
+    <meta name="description" content="nextjs 多环境配置、多语言以及自动化构建和部署">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nextjs多环境配置、多语言以及自动化构建和部署">
-<meta property="og:url" content="https://mryyg.github.io/MyBlog/2023/06/30/ci-cd/index.html">
+<meta property="og:url" content="https://mryyg.github.io/MyBlog/2024/01/10/ci-cd/index.html">
 <meta property="og:site_name" content="mryyg&#39;s blog">
-<meta property="og:description" content="nextjs多环境配置、多语言以及自动化构建和部署">
+<meta property="og:description" content="nextjs 多环境配置、多语言以及自动化构建和部署">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-30T03:50:15.760Z">
-<meta property="article:modified_time" content="2023-10-13T02:14:32.053Z">
+<meta property="article:published_time" content="2024-01-10T01:50:16.517Z">
+<meta property="article:modified_time" content="2024-02-23T08:55:41.697Z">
 <meta property="article:author" content="mryyg">
 <meta property="article:tag" content="前端 React js ts">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://mryyg.github.io/MyBlog/2023/06/30/ci-cd/">
+<link rel="canonical" href="https://mryyg.github.io/MyBlog/2024/01/10/ci-cd/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mryyg.github.io/MyBlog/2023/06/30/ci-cd/","path":"2023/06/30/ci-cd/","title":"nextjs多环境配置、多语言以及自动化构建和部署"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mryyg.github.io/MyBlog/2024/01/10/ci-cd/","path":"2024/01/10/ci-cd/","title":"nextjs多环境配置、多语言以及自动化构建和部署"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>nextjs多环境配置、多语言以及自动化构建和部署 | mryyg's blog</title>
@@ -172,7 +172,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://mryyg.github.io/MyBlog/2023/06/30/ci-cd/">
+    <link itemprop="mainEntityOfPage" href="https://mryyg.github.io/MyBlog/2024/01/10/ci-cd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/MyBlog/image/avatar.png">
@@ -201,14 +201,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-06-30 11:50:15" itemprop="dateCreated datePublished" datetime="2023-06-30T11:50:15+08:00">2023-06-30</time>
+      <time title="创建时间：2024-01-10 09:50:16" itemprop="dateCreated datePublished" datetime="2024-01-10T09:50:16+08:00">2024-01-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-13 10:14:32" itemprop="dateModified" datetime="2023-10-13T10:14:32+08:00">2023-10-13</time>
+      <time title="修改时间：2024-02-23 16:55:41" itemprop="dateModified" datetime="2024-02-23T16:55:41+08:00">2024-02-23</time>
     </span>
 
   
@@ -221,25 +221,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>nextjs多环境配置、多语言以及自动化构建和部署</p>
+        <p>nextjs 多环境配置、多语言以及自动化构建和部署</p>
 <span id="more"></span>
 
-<p>1.多环境配置我是用的dotenv-cli这个插件，只需要在根目录创建对应的.env文件（如.env.test/.env.production）,然后配置对应的打包和启动命令就好；</p>
+<p>1.多环境配置我是用的 dotenv-cli 这个插件，只需要在根目录创建对应的.env 文件（如.env.test/.env.production）,然后配置对应的打包和启动命令就好；</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;dev&quot;: &quot;next dev&quot;,</span><br><span class="line">    &quot;build&quot;: &quot;next build&quot;,</span><br><span class="line">    &quot;build:test&quot;: &quot;dotenv -e .env.test next build&quot;,</span><br><span class="line">    &quot;build:dev&quot;: &quot;dotenv -e .env.dev next build&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;next start&quot;,</span><br><span class="line">    &quot;start:test&quot;: &quot;dotenv -e .env.test next start&quot;,</span><br><span class="line">    &quot;start:dev&quot;: &quot;dotenv -e .env.dev next start&quot;,</span><br><span class="line">    &quot;lint&quot;: &quot;next lint&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 
-
-<p>2.多语言是使用的next-i18next这个插件，看文档操作就行<br><a target="_blank" rel="noopener" href="https://github.com/i18next/next-i18next">https://github.com/i18next/next-i18next</a><br>语言包这块，我们公司是有文案组去翻译，给个在线表格的模版她们，然后将翻译好的表格给我导入，导入用nodejs写了个脚本;</p>
+<p>2.多语言是使用的 next-i18next 这个插件，看文档操作就行<br><a target="_blank" rel="noopener" href="https://github.com/i18next/next-i18next">https://github.com/i18next/next-i18next</a><br>语言包这块，我们公司是有文案组去翻译，给个在线表格的模版她们，然后将翻译好的表格给我导入，导入用 nodejs 写了个脚本;</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var xlsx = require(&#x27;node-xlsx&#x27;);</span><br><span class="line">var fs = require(&#x27;fs&#x27;);</span><br><span class="line">const path = require(&#x27;path&#x27;)</span><br><span class="line"></span><br><span class="line">const fileName = [&#x27;en&#x27;, &#x27;zh&#x27;, &#x27;ja&#x27;, &#x27;de&#x27;, &#x27;fr&#x27;, &#x27;it&#x27;, &#x27;es&#x27;, &#x27;ru&#x27;, &#x27;nl&#x27;, &#x27;pl&#x27;, &#x27;sv&#x27;, &#x27;tr&#x27;,&#x27;pt&#x27;,&#x27;zh_TW&#x27;]</span><br><span class="line"></span><br><span class="line">const fileMap = fileName.reduce((pre, cur) =&gt; &#123;</span><br><span class="line">    pre[cur] = &#123;&#125;</span><br><span class="line">    return pre</span><br><span class="line">&#125;,&#123;&#125;)</span><br><span class="line"></span><br><span class="line">try &#123;</span><br><span class="line">  var tableData = xlsx.parse(path.join(__dirname, &#x27;./lang.xlsx&#x27;));</span><br><span class="line"></span><br><span class="line">  tableData[0].data?.forEach(row =&gt; &#123;</span><br><span class="line">    row.forEach((col, index) =&gt; &#123;</span><br><span class="line">      // 第一列为key</span><br><span class="line">      if (index === 0) return</span><br><span class="line">      fileMap[fileName[index-1]][row[0]] = col</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  fileName.forEach((name) =&gt; &#123;</span><br><span class="line">    fs.writeFile(</span><br><span class="line">      path.join(__dirname, `$&#123;name&#125;.json`),</span><br><span class="line">      JSON.stringify(fileMap[name]),</span><br><span class="line">      function (err) &#123;</span><br><span class="line">        if (err) &#123;</span><br><span class="line">          throw err</span><br><span class="line">        &#125;</span><br><span class="line">        console.log(&#x27;save&#x27;) //文件被保存</span><br><span class="line">      &#125;,</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">  console.log(error, 111)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>3.自动化构建和部署用的Jenkins<br>Jenkins用的不熟，简单配置，先配置仓库地址和分支，然后跑shell命令构建</p>
+<p>3.自动化构建和部署用的 Jenkins<br>Jenkins 用的不熟，简单配置，先配置仓库地址和分支，然后跑 shell 命令构建</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;start.......&quot;</span><br><span class="line">cd /var/jenkins_home/workspace/atoto-mall-mobile</span><br><span class="line">docker rmi -f atoto-mall-mobile:1.0.0</span><br><span class="line">docker build -t atoto-mall-mobile:1.0.0 .</span><br><span class="line">docker rm -f atoto-mall-mobile</span><br><span class="line">docker run -d -p 3033:3000 --name atoto-mall-mobile atoto-mall-mobile:1.0.0</span><br><span class="line">echo &quot;创建容器并启动成功！&quot;</span><br></pre></td></tr></table></figure>
 
-<p>docker也用的不熟，简单写了个Dockerfile,放项目根目录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM node:16.17.0</span><br><span class="line"></span><br><span class="line"># 设置工作目录</span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"># 将项目文件复制到工作目录</span><br><span class="line">COPY . /app</span><br><span class="line"></span><br><span class="line"># 安装依赖项</span><br><span class="line"></span><br><span class="line">RUN yarn</span><br><span class="line"></span><br><span class="line">RUN npm run build:dev</span><br><span class="line"></span><br><span class="line"># 暴露端口（根据需要）</span><br><span class="line">EXPOSE 3000</span><br><span class="line"></span><br><span class="line"># 启动应用程序</span><br><span class="line">CMD [ &quot;npm&quot;, &quot;run&quot;, &quot;start:dev&quot; ]</span><br></pre></td></tr></table></figure>
-<p> 然后就是nginx的配置，将80端口和对应路径转发到3033端口</p>
-<p>—–  23-10-13   —–<br>让GPT优化后的Dockerfile，镜像体积减少了近1.6个G</p>
+<p>docker 也用的不熟，用 GPT 简单写了个 Dockerfile,放项目根目录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 阶段 1: 构建应用程序</span><br><span class="line">FROM node:16.17.0-alpine as build</span><br><span class="line"></span><br><span class="line">WORKDIR /app</span><br><span class="line">COPY . /app</span><br><span class="line">RUN yarn</span><br><span class="line">RUN npm run build:dev</span><br><span class="line"></span><br><span class="line"># 阶段 2: 创建最终镜像</span><br><span class="line">FROM node:16.17.0</span><br><span class="line"></span><br><span class="line">WORKDIR /app</span><br><span class="line">COPY --from=build /app /app</span><br><span class="line"></span><br><span class="line">EXPOSE 3000</span><br><span class="line"></span><br><span class="line">CMD [ &quot;npm&quot;, &quot;run&quot;, &quot;start:dev&quot; ]</span><br></pre></td></tr></table></figure>
 
+<p>然后就是 nginx 的配置，将 80 端口和对应路径转发到 3033 端口</p>
 
     </div>
 
